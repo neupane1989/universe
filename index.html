@@ -1,0 +1,777 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Universe & Beyond</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #0a192f;
+            --secondary-color: #112240;
+            --accent-color: #64ffda;
+            --gradient: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            --glass-bg: rgba(255, 255, 255, 0.05);
+            --shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+            --border: 1px solid rgba(255, 255, 255, 0.18);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: var(--gradient);
+            color: #fff;
+            line-height: 1.6;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        h1, h2, h3 {
+            font-family: 'Orbitron', sans-serif;
+        }
+
+        /* Cosmic Background with mixed rotations */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                radial-gradient(2px 2px at 20px 30px, #eee, transparent),
+                radial-gradient(2px 2px at 40px 70px, rgba(255,255,255,0.8), transparent),
+                radial-gradient(1px 1px at 90px 40px, #fff, transparent),
+                radial-gradient(1px 1px at 130px 80px, rgba(255,255,255,0.6), transparent),
+                radial-gradient(2px 2px at 160px 30px, #fff, transparent),
+                radial-gradient(1px 1px at 50px 100px, #fff, transparent),
+                radial-gradient(2px 2px at 200px 150px, rgba(255,255,255,0.7), transparent);
+            background-repeat: repeat;
+            background-size: 250px 150px;
+            animation: twinkle-clockwise 30s linear infinite;
+            z-index: -1;
+            opacity: 0.7;
+        }
+
+        body::after {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                radial-gradient(1px 1px at 30px 50px, #ddd, transparent),
+                radial-gradient(2px 2px at 60px 90px, rgba(255,255,255,0.6), transparent),
+                radial-gradient(1px 1px at 110px 60px, #eee, transparent),
+                radial-gradient(2px 2px at 150px 100px, rgba(255,255,255,0.5), transparent),
+                radial-gradient(1px 1px at 180px 40px, #fff, transparent);
+            background-repeat: repeat;
+            background-size: 300px 200px;
+            animation: twinkle-anticlockwise 25s linear infinite;
+            z-index: -1;
+            opacity: 0.5;
+        }
+
+        @keyframes twinkle-clockwise {
+            0% { transform: translate(0, 0) rotate(0deg); }
+            100% { transform: translate(50px, 50px) rotate(360deg); }
+        }
+
+        @keyframes twinkle-anticlockwise {
+            0% { transform: translate(0, 0) rotate(0deg); }
+            100% { transform: translate(-50px, -50px) rotate(-360deg); }
+        }
+
+        /* Solar System Animation in Hero */
+        .solar-system {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 300px;
+            height: 300px;
+            opacity: 0.3;
+            pointer-events: none;
+        }
+
+        .sun {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 20px;
+            height: 20px;
+            background: yellow;
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            box-shadow: 0 0 20px yellow;
+        }
+
+        .planet {
+            position: absolute;
+            border-radius: 50%;
+            animation: orbit linear infinite;
+        }
+
+        .mercury {
+            width: 4px;
+            height: 4px;
+            background: gray;
+            top: 50%;
+            left: 50%;
+            animation-duration: 10s;
+            animation-name: orbit-clockwise;
+        }
+
+        .venus {
+            width: 6px;
+            height: 6px;
+            background: orange;
+            top: 50%;
+            left: 50%;
+            animation-duration: 15s;
+            animation-name: orbit-anticlockwise;
+        }
+
+        .earth {
+            width: 8px;
+            height: 8px;
+            background: blue;
+            top: 50%;
+            left: 50%;
+            animation-duration: 20s;
+            animation-name: orbit-clockwise;
+        }
+
+        .mars {
+            width: 5px;
+            height: 5px;
+            background: red;
+            top: 50%;
+            left: 50%;
+            animation-duration: 25s;
+            animation-name: orbit-anticlockwise;
+        }
+
+        @keyframes orbit-clockwise {
+            0% { transform: rotate(0deg) translateX(50px) rotate(0deg); }
+            100% { transform: rotate(360deg) translateX(50px) rotate(-360deg); }
+        }
+
+        @keyframes orbit-anticlockwise {
+            0% { transform: rotate(0deg) translateX(70px) rotate(0deg); }
+            100% { transform: rotate(-360deg) translateX(70px) rotate(360deg); }
+        }
+
+        /* Adjust orbits */
+        .venus { animation-name: orbit-clockwise; transform-origin: center; animation-duration: 18s; }
+        .earth { transform: rotate(0deg) translateX(100px) rotate(0deg); }
+        .mars { transform: rotate(0deg) translateX(130px) rotate(0deg); }
+
+        .navbar {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 1rem;
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            border-bottom: var(--border);
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 10;
+            gap: 1rem;
+        }
+
+        .logo img {
+            height: 60px;
+            width: auto;
+        }
+
+        .nav-links {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .nav-links a {
+            color: #fff;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent-color);
+        }
+
+        .admin-btn {
+            background: var(--accent-color);
+            border: none;
+            padding: 0.5rem 1rem;
+            color: var(--primary-color);
+            cursor: pointer;
+            border-radius: 5px;
+            transition: transform 0.3s;
+        }
+
+        .admin-btn:hover {
+            transform: scale(1.05);
+        }
+
+        section {
+            padding: 2rem 1rem;
+            min-height: 80vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        #home {
+            text-align: center;
+            position: relative;
+        }
+
+        #home h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(to right, #fff, var(--accent-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes glow {
+            from { text-shadow: 0 0 10px #fff; }
+            to { text-shadow: 0 0 20px var(--accent-color); }
+        }
+
+        #home p {
+            font-size: 1.2rem;
+            opacity: 0.8;
+        }
+
+        .video-gallery h2, .research-vault h2, .mission-log h2, .about-me h2 {
+            text-align: center;
+            margin-bottom: 1rem;
+            font-size: 2rem;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+        }
+
+        th, td {
+            padding: 0.8rem;
+            text-align: left;
+            border-bottom: var(--border);
+        }
+
+        th {
+            background: rgba(255,255,255,0.1);
+        }
+
+        .admin-controls {
+            margin-top: 1rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+            background: var(--glass-bg);
+            padding: 1rem;
+            border-radius: 10px;
+            backdrop-filter: blur(10px);
+            box-shadow: var(--shadow);
+        }
+
+        .admin-controls input, .admin-controls select, .admin-controls textarea {
+            padding: 0.5rem;
+            border: var(--border);
+            background: var(--glass-bg);
+            color: #fff;
+            border-radius: 5px;
+        }
+
+        .admin-controls button {
+            background: var(--accent-color);
+            border: none;
+            padding: 0.5rem;
+            color: var(--primary-color);
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        #research-entries, #mission-entries {
+            display: grid;
+            gap: 1rem;
+        }
+
+        .entry {
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            padding: 1rem;
+            border-radius: 10px;
+            border: var(--border);
+            box-shadow: var(--shadow);
+            transition: transform 0.3s;
+        }
+
+        .entry:hover {
+            transform: translateY(-5px);
+        }
+
+        .about-me {
+            text-align: center;
+        }
+
+        .about-photo {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin: 1rem auto;
+            display: block;
+            box-shadow: var(--shadow);
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .social-links {
+            margin-top: 1rem;
+        }
+
+        .social-links h3 {
+            margin-bottom: 0.5rem;
+        }
+
+        .social-links a {
+            display: block;
+            color: var(--accent-color);
+            margin: 0.5rem 0;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .social-links a:hover {
+            color: #fff;
+        }
+
+        footer {
+            text-align: center;
+            padding: 1rem;
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            border-top: var(--border);
+            margin-top: 1rem;
+        }
+
+        .social-icons {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 0.5rem;
+        }
+
+        .social-icons a {
+            display: inline-block;
+        }
+
+        .social-icons span {
+            font-size: 1.5rem;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Mobile-first Responsive Breakpoints */
+        @media (min-width: 768px) {
+            .navbar {
+                flex-direction: row;
+                justify-content: space-between;
+                padding: 1rem 2rem;
+                gap: 0;
+            }
+
+            .nav-links {
+                flex-direction: row;
+                gap: 2rem;
+            }
+
+            section {
+                padding: 4rem 2rem;
+            }
+
+            #home h1 {
+                font-size: 4rem;
+            }
+
+            #home p {
+                font-size: 1.5rem;
+            }
+
+            .video-gallery h2, .research-vault h2, .mission-log h2, .about-me h2 {
+                font-size: 2.5rem;
+                margin-bottom: 2rem;
+            }
+
+            table th, table td {
+                padding: 1rem;
+            }
+
+            .admin-controls {
+                max-width: 500px;
+                margin-left: auto;
+                margin-right: auto;
+                padding: 1.5rem;
+                gap: 1rem;
+            }
+
+            #research-entries, #mission-entries {
+                max-width: 800px;
+                margin: 0 auto;
+            }
+
+            .about-photo {
+                width: 200px;
+                height: 200px;
+            }
+
+            .social-links a {
+                display: inline-block;
+                margin: 0 1rem;
+            }
+
+            .solar-system {
+                width: 400px;
+                height: 400px;
+            }
+
+            .sun {
+                width: 30px;
+                height: 30px;
+            }
+
+            .mercury { transform: rotate(0deg) translateX(60px) rotate(0deg); }
+            .venus { transform: rotate(0deg) translateX(90px) rotate(0deg); }
+            .earth { transform: rotate(0deg) translateX(120px) rotate(0deg); }
+            .mars { transform: rotate(0deg) translateX(150px) rotate(0deg); }
+        }
+
+        @media (min-width: 1024px) {
+            .solar-system {
+                width: 500px;
+                height: 500px;
+            }
+        }
+    </style>
+    <!-- Firebase SDK -->
+    <script type="module">
+        import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.13.1/firebase-app.js';
+        import { getDatabase, ref, onValue, push, update } from 'https://www.gstatic.com/firebasejs/10.13.1/firebase-database.js';
+        import { getStorage, ref as storageRef, uploadBytes, getDownloadURL } from 'https://www.gstatic.com/firebasejs/10.13.1/firebase-storage.js';
+        import { getAuth, signInAnonymously } from 'https://www.gstatic.com/firebasejs/10.13.1/firebase-auth.js';
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyDSD1cfsf564-fODgEpXhifNyLS82Lrhfk",
+            authDomain: "universe-e1634.firebaseapp.com",
+            projectId: "universe-e1634",
+            storageBucket: "universe-e1634.firebasestorage.app",
+            messagingSenderId: "714096730441",
+            appId: "1:714096730441:web:d6b018a4f04970c4593a98",
+            measurementId: "G-8P8FBW6KDB"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getDatabase(app);
+        const storage = getStorage(app);
+        const auth = getAuth(app);
+
+        signInAnonymously(auth).catch(console.error);
+
+        let isAdmin = false;
+
+        // Admin Login
+        document.getElementById('admin-login').addEventListener('click', () => {
+            const password = prompt('Enter admin password:');
+            if (password === 'admin123') { // Change in production
+                isAdmin = true;
+                toggleAdminControls();
+                alert('Logged in as admin');
+            } else {
+                alert('Incorrect password');
+            }
+        });
+
+        function toggleAdminControls() {
+            document.querySelectorAll('.admin-controls').forEach(el => el.classList.toggle('hidden', !isAdmin));
+        }
+
+        // Videos
+        const videosRef = ref(db, 'videos');
+        onValue(videosRef, (snapshot) => {
+            const videos = snapshot.val() || {};
+            const tbody = document.querySelector('#video-table tbody');
+            tbody.innerHTML = '';
+            Object.entries(videos).forEach(([id, video], index) => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${index + 1}</td>
+                    <td>${video.title}</td>
+                    <td><a href="${video.link}" target="_blank">Watch</a></td>
+                `;
+                if (isAdmin) {
+                    const editBtn = document.createElement('button');
+                    editBtn.textContent = 'Edit';
+                    editBtn.onclick = () => editVideo(id, video);
+                    row.appendChild(editBtn);
+                }
+                tbody.appendChild(row);
+            });
+
+            // Update research select
+            const select = document.getElementById('research-video-select');
+            select.innerHTML = '<option value="">Select Video</option>';
+            Object.entries(videos).forEach(([id, video]) => {
+                const option = document.createElement('option');
+                option.value = id;
+                option.textContent = video.title;
+                select.appendChild(option);
+            });
+        });
+
+        document.getElementById('add-video').addEventListener('click', () => {
+            const title = document.getElementById('video-title').value;
+            const link = document.getElementById('video-link').value;
+            if (title && link) {
+                push(videosRef, { title, link });
+                document.getElementById('video-title').value = '';
+                document.getElementById('video-link').value = '';
+            }
+        });
+
+        function editVideo(id, video) {
+            const newTitle = prompt('New Title:', video.title);
+            const newLink = prompt('New Link:', video.link);
+            if (newTitle && newLink) {
+                update(ref(db, `videos/${id}`), { title: newTitle, link: newLink });
+            }
+        }
+
+        // Research
+        const researchRef = ref(db, 'research');
+        onValue(researchRef, (snapshot) => {
+            const research = snapshot.val() || {};
+            const container = document.getElementById('research-entries');
+            container.innerHTML = '';
+            Object.entries(research).forEach(([id, entry]) => {
+                const div = document.createElement('div');
+                div.className = 'entry';
+                div.innerHTML = `
+                    <h3>${entry.videoTitle}</h3>
+                    <p>${entry.summary}</p>
+                    <a href="${entry.pdfUrl}" target="_blank">Download PDF</a>
+                `;
+                if (isAdmin) {
+                    const editBtn = document.createElement('button');
+                    editBtn.textContent = 'Edit';
+                    editBtn.onclick = () => editResearch(id, entry);
+                    div.appendChild(editBtn);
+                }
+                container.appendChild(div);
+            });
+        });
+
+        document.getElementById('add-research').addEventListener('click', async () => {
+            const videoId = document.getElementById('research-video-select').value;
+            const videoTitle = document.getElementById('research-video-select').selectedOptions[0]?.text || '';
+            const file = document.getElementById('research-pdf').files[0];
+            const summary = document.getElementById('research-summary').value;
+
+            if (videoId && file && summary) {
+                const storageReference = storageRef(storage, `research/${file.name}`);
+                try {
+                    const snapshot = await uploadBytes(storageReference, file);
+                    const url = await getDownloadURL(snapshot.ref);
+                    push(researchRef, { videoId, videoTitle, summary, pdfUrl: url });
+                    document.getElementById('research-summary').value = '';
+                    document.getElementById('research-pdf').value = '';
+                } catch (error) {
+                    console.error('Upload failed:', error);
+                }
+            }
+        });
+
+        function editResearch(id, entry) {
+            const newSummary = prompt('New Summary:', entry.summary);
+            if (newSummary !== null) {
+                update(ref(db, `research/${id}`), { summary: newSummary });
+            }
+        }
+
+        // Mission Log
+        const missionRef = ref(db, 'missions');
+        onValue(missionRef, (snapshot) => {
+            const missions = snapshot.val() || {};
+            const container = document.getElementById('mission-entries');
+            container.innerHTML = '';
+            Object.entries(missions).forEach(([id, entry]) => {
+                const div = document.createElement('div');
+                div.className = 'entry';
+                div.innerHTML = `
+                    <h3>${entry.title}</h3>
+                    <a href="${entry.pdfUrl}" target="_blank">Download PDF</a>
+                `;
+                if (isAdmin) {
+                    const editBtn = document.createElement('button');
+                    editBtn.textContent = 'Edit';
+                    editBtn.onclick = () => editMission(id, entry);
+                    div.appendChild(editBtn);
+                }
+                container.appendChild(div);
+            });
+        });
+
+        document.getElementById('add-mission').addEventListener('click', async () => {
+            const title = document.getElementById('mission-title').value;
+            const file = document.getElementById('mission-pdf').files[0];
+
+            if (title && file) {
+                const storageReference = storageRef(storage, `missions/${file.name}`);
+                try {
+                    const snapshot = await uploadBytes(storageReference, file);
+                    const url = await getDownloadURL(snapshot.ref);
+                    push(missionRef, { title, pdfUrl: url });
+                    document.getElementById('mission-title').value = '';
+                    document.getElementById('mission-pdf').value = '';
+                } catch (error) {
+                    console.error('Upload failed:', error);
+                }
+            }
+        });
+
+        function editMission(id, entry) {
+            const newTitle = prompt('New Title:', entry.title);
+            if (newTitle !== null) {
+                update(ref(db, `missions/${id}`), { title: newTitle });
+            }
+        }
+    </script>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo"><img src="logo.jpg" alt="Universe & Beyond Logo"></div>
+        <ul class="nav-links">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#research">Research Vault</a></li>
+            <li><a href="#mission">Mission Log</a></li>
+            <li><a href="#about">About Me</a></li>
+        </ul>
+        <button id="admin-login" class="admin-btn">Admin Login</button>
+    </nav>
+
+    <section id="home" class="hero">
+        <div class="solar-system">
+            <div class="sun"></div>
+            <div class="planet mercury"></div>
+            <div class="planet venus"></div>
+            <div class="planet earth"></div>
+            <div class="planet mars"></div>
+        </div>
+        <h1>Universe & Beyond</h1>
+        <p>Explore the Infinite</p>
+        <div class="video-gallery">
+            <h2>Video Gallery</h2>
+            <table id="video-table">
+                <thead>
+                    <tr>
+                        <th>S.no</th>
+                        <th>Topic Title</th>
+                        <th>YouTube Link</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Populated by JS -->
+                </tbody>
+            </table>
+            <div id="admin-video-controls" class="admin-controls hidden">
+                <input type="text" id="video-title" placeholder="Topic Title">
+                <input type="url" id="video-link" placeholder="YouTube Link">
+                <button id="add-video">Add Video</button>
+            </div>
+        </div>
+    </section>
+
+    <section id="research" class="research-vault">
+        <h2>Research Vault</h2>
+        <div id="research-entries">
+            <!-- Populated by JS -->
+        </div>
+        <div id="admin-research-controls" class="admin-controls hidden">
+            <select id="research-video-select">
+                <option value="">Select Video</option>
+            </select>
+            <input type="file" id="research-pdf" accept=".pdf">
+            <textarea id="research-summary" placeholder="Short Summary" rows="4"></textarea>
+            <button id="add-research">Submit Research</button>
+        </div>
+    </section>
+
+    <section id="mission" class="mission-log">
+        <h2>Mission Log</h2>
+        <div id="mission-entries">
+            <!-- Populated by JS -->
+        </div>
+        <div id="admin-mission-controls" class="admin-controls hidden">
+            <input type="text" id="mission-title" placeholder="Title">
+            <input type="file" id="mission-pdf" accept=".pdf">
+            <button id="add-mission">Submit Mission Log</button>
+        </div>
+    </section>
+
+    <section id="about" class="about-me">
+        <h2>About Me</h2>
+        <img src="photo.jpg" alt="Shankar Neupane" class="about-photo">
+        <h3>About the Journey</h3>
+        <p>Passion for the cosmos drives every exploration</p>
+        <p>Welcome to Universe & Beyond, where curiosity meets the infinite expanse of space. I'm Shankar Neupane, dedicated to unraveling the mysteries that surround us, from the smallest quantum particles to the largest galactic structures.</p>
+        <p>This journey began with a simple question: "What lies beyond the stars we see?" That question has evolved into a mission to share the wonder, beauty, and scientific rigor of space exploration with fellow cosmic enthusiasts.</p>
+        <p>Every video, research paper, and mission log entry represents hours of investigation, verification, and passion for accuracy. Join me as we explore the universe together, one discovery at a time.</p>
+        <div class="social-links">
+            <h3>Connect with Me</h3>
+            <a href="https://twitter.com/yourhandle">Twitter</a>
+            <a href="https://youtube.com/yourchannel">YouTube</a>
+            <!-- Update links as needed -->
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2025 Universe & Beyond. All rights reserved.</p>
+        <div class="social-icons">
+            <a href="https://twitter.com/yourhandle"><span>🐦</span></a>
+            <a href="https://youtube.com/yourchannel"><span>▶️</span></a>
+        </div>
+    </footer>
+</body>
+</html>
